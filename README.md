@@ -18,16 +18,17 @@ private:
 ```
 #### Использование евентов / Event usage:
 ```cpp
+#include <iostream>
 #include <EventManager.h>
 #include "MessageEvent.h"
 
 int main() {
-	EventManager eventManager; // Создаём объект EventManager'а
-
-    eventManager.Register<MessageEvent>([](shared_ptr<MessageEvent> event) { // Регистрация handler'а
-        cout << event->GetText() << endl;
-    });
+    EventManager eventManager; // Создаём объект EventManager
 	
-	eventManager.Call(make_shared<MessageEvent>("event called!")); // Вызов евента
+	eventManager.Register<MessageEvent>([](shared_ptr<MessageEvent> event) { // Регистрация handler
+	    std::cout << event->GetText() << std::endl;
+	}
+	
+	eventManager.Call(make_shared<MessageEvent>("Message event called!")); // Вызов евента
 }
 ```
